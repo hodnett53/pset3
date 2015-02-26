@@ -14,13 +14,9 @@
 /**
  * Swaps any two items in an array
  */
-void swap(int values[], int n, int m)
+void swap(int values[], int n)
 {
-    // check for same input values
-    if (n == m || values[n] == values[m])
-    {
-       return;
-    }
+    int m = n + 1;
     
     // set the placeholder
     int placeholder = values[n];
@@ -37,68 +33,44 @@ void swap(int values[], int n, int m)
  */
 bool search(int value, int values[], int n)
 {
-    // (needle, haystack, size)
+    // set values for upper and lower
+    int low = 0;
+    int high = n - 1;
     
-    while (n > 0)
+    //loop through
+    while (low <= high)
     {
-        // get midpoint
-        int half = round(n / 2);
-        int midpoint = values[half];
-    
-        if (midpoint == value)
-        {
+        int middle = (low + high) / 2;
+        
+        if (values[middle] == value)
             return true;
-        }
-        
-        else if (midpoint < value)
-        {
-            int newSize = n - half;
-            int newValues[newSize];
-            
-            for (int i = 0; i < newSize; i++)
-                {
-                    newValues[i] = values[half + i];
-                }
-                
-            search(value, newValues, newSize);
-        }
-        
-        else if(midpoint > value)
-        {
-            int newSize = n - half - 1;
-            int newValues[newSize];
-            
-            for (int i = 0; i < newSize; i++)
-            {
-                newValues[i] = values[i];
-            }
-            
-            search(value, newValues, newSize);
-        }
+        else if (values[middle] < value)
+            low = middle + 1;
+        else if (values[middle] > value)
+            high = middle - 1;
     }
-    
     return false;
 }
+
 
 /**
  * Sorts array of n values.
  */
 void sort(int values[], int n)
 {
-    if (n == 1)
-    {
-        return;
-    }
+    // bubble sort
     
+    //return if sorted
+    if (n == 1)
+        return;
+    //swap highest value all the way right
     for (int i = 0; i < (n - 1); i++)
     {
         if (values[i] > values[i + 1])
-        {
-            swap(values, i, i + 1);
-        }
+            swap(values, i);
     }
-    
+    // change size to account for what is sorted
     int newSize = n - 1;
-    
+    // make recursive
     sort(values, newSize);
 }
