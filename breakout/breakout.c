@@ -78,22 +78,28 @@ int main(void)
     double x_velocity = (0.5 - drand48()) * 3;
     double y_velocity = 4.0;
     
+    // wait for click to start the game
     waitForClick();
 
     // keep playing until game over
     while (lives > 0 && bricks > 0)
     {
+        // update the scoreboard
         updateScoreboard(window, label, points); 
         
+        // set ball movement
         move(ball, x_velocity, y_velocity);
         
+        // slow down the movement;
         pause(10);
         
-        // TODO
+        // make mouse movement object
         GEvent event = getNextEvent(MOUSE_EVENT);
         
+        // error checking
         if (event != NULL)
         {
+            // bind paddle to mouse
             if (getEventType(event) == MOUSE_MOVED)
             {
                 double x = getX(event) - getWidth(paddle) / 2;
@@ -101,18 +107,22 @@ int main(void)
             }
         }
         
+        // make collision object
         GObject object = detectCollision(window, ball);
         
         if (object != NULL)
         {
+            // check for collision with paddle
             if (object == paddle)
             {
+                // remove dribble bug
                 if (y_velocity > 0)
                 {
                     y_velocity = -y_velocity;
                 }
             }
         
+            // check for collision with block
             else if (strcmp(getType(object), "GRect") == 0)
             {
                 removeGWindow(window, object);
@@ -122,22 +132,26 @@ int main(void)
             }
         }
         
+        // check for collision with right wall
         if(getX(ball) + getWidth(ball) >= getWidth(window))
         {
             x_velocity = -x_velocity;
         }
         
+        // check for collision with left wall
         if (getX(ball) <= 0)
         {
             x_velocity = -x_velocity;
         }
         
+        // check for ball hitting the bottom of the screen
         if (getY(ball) + getHeight(ball) >= getHeight(window))
         {
             lives--;
             setLocation(ball, (WIDTH / 2) - RADIUS, (HEIGHT / 3) - RADIUS);
             setLocation(paddle, (WIDTH / 2) - (PADDLEW / 2), HEIGHT * 4 / 5);
             waitForClick();
+            // TODO make x velocity a new random number here
         }
     }
 
