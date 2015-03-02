@@ -74,11 +74,9 @@ int main(void)
     // number of points initially
     int points = 0;
 
-    
+    // set initial velocity
     double x_velocity = (0.5 - drand48()) * 3;
     double y_velocity = 4.0;
-    
-    printf("%.2f\n", drand48());
     
     waitForClick();
 
