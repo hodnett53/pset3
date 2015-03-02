@@ -107,7 +107,10 @@ int main(void)
         {
             if (object == paddle)
             {
-                y_velocity = -y_velocity;
+                if (y_velocity > 0)
+                {
+                    y_velocity = -y_velocity;
+                }
             }
         
             else if (strcmp(getType(object), "GRect") == 0)
