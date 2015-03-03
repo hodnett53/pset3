@@ -1,7 +1,8 @@
 //
 // breakout.c
 //
-// Computer Science 50
+// Luke Hodnett
+// CS50x
 // Problem Set 3
 //
 
@@ -171,14 +172,20 @@ void initBricks(GWindow window)
     // TODO fix columns so it changes when constant changes
     int rowSpacing = 10;
     int colSpacing = 50;
+    
     // array containing the colors of each row
     char* colors[5] = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE"};
+    
+    // create an array the size of ROWS
     char* rowColors[ROWS];
+    
+    // loop through colors array to fill rowColor
     for (int i = 0; i < ROWS; i++)
     {
         rowColors[i] = colors[i % 5];
     }
     
+    // TODO set to a more variable number
     int y = 50;
     
     // set rows
@@ -202,11 +209,15 @@ void initBricks(GWindow window)
  */
 GOval initBall(GWindow window)
 {
-    // TODO
+    // set position variables
     int startY = (HEIGHT / 3) - RADIUS;
     int startX = (WIDTH / 2) - RADIUS;
+    
+    // instantiate ball
     GOval ball = newGOval(startX, startY, RADIUS * 2, RADIUS * 2);
     setFilled(ball, true);
+    
+    // add ball to window
     add(window, ball);
     return ball;
 }
@@ -216,13 +227,19 @@ GOval initBall(GWindow window)
  */
 GRect initPaddle(GWindow window)
 {
+    // set position variables
     int x = (WIDTH / 2) - (PADDLEW / 2);
     int y = HEIGHT * 4 / 5;
+    
+    // instantiate paddle
     GRect paddle = newGRect(x, y, PADDLEW, PADDLEH);
     setFilled(paddle, true);
     setColor(paddle, "RED");
+    
+    // add paddle to window
     add(window, paddle);
     
+    // return paddle
     return paddle;
 }
 
@@ -231,12 +248,16 @@ GRect initPaddle(GWindow window)
  */
 GLabel initScoreboard(GWindow window)
 {
-    // TODO
+    // initialize label
     GLabel label = newGLabel("");
     setFont(label, "SansSerif-50");
     setColor(label, "C0C0C0");
+    
+    // add label to window
     add(window, label);
     setLocation(label, 185, 300);
+    
+    // return label
     return label;
 }
 
