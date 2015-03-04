@@ -23,7 +23,7 @@
 #define WIDTH 400
 
 // number of rows of bricks
-#define ROWS 5
+#define ROWS 6
 
 // number of columns of bricks
 #define COLS 10
@@ -37,6 +37,9 @@
 // paddle width and height
 #define PADDLEH 10
 #define PADDLEW 50
+
+//padding between bricks
+#define PADDING 5
 
 // prototypes
 void initBricks(GWindow window);
@@ -182,6 +185,13 @@ int main(void)
  */
 void initBricks(GWindow window)
 {    
+    // set dimensions of bricks
+    int brickWidth = (getWidth(window) - (COLS + 1) * PADDING) / COLS;
+    int brickHeight = 10;
+    
+    // height from top
+    int y = 30;
+    
     // array containing the colors of each row
     char* colors[5] = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE"};
     
@@ -193,23 +203,19 @@ void initBricks(GWindow window)
     {
         rowColors[i] = colors[i % 5];
     }
-    
-    // TODO set to a more variable number
-    int y = 50;
-    
+        
     // set rows
     for (int i = 0; i < ROWS; i++)
     {
-        int x = 2;
         for (int j = 0; j < COLS; j++)
         {
-            GRect brick = newGRect(x + 5, y, 35, 10);
+            GRect brick = newGRect(brickWidth * j + PADDING * (j + 1), y, brickWidth, brickHeight);
             setColor(brick, rowColors[i]); 
             setFilled(brick, true);
             add(window, brick);
-            x += 39;
         }
-        y += 15;
+        // height between rows
+        y += brickHeight + PADDING;
     }
 }
 
