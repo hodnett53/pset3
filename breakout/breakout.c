@@ -23,10 +23,10 @@
 #define WIDTH 400
 
 // number of rows of bricks
-#define ROWS 1
+#define ROWS 5
 
 // number of columns of bricks
-#define COLS 1
+#define COLS 10
 
 // radius of ball in pixels
 #define RADIUS 10
@@ -158,8 +158,8 @@ int main(void)
             lives--;
             setLocation(ball, (WIDTH / 2) - RADIUS, (HEIGHT / 3) - RADIUS);
             setLocation(paddle, (WIDTH / 2) - (PADDLEW / 2), HEIGHT * 4 / 5);
+            x_velocity *= -1;
             waitForClick();
-            // TODO make x velocity a new random number here
         }
     }
 
