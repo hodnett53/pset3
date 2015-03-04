@@ -23,10 +23,10 @@
 #define WIDTH 400
 
 // number of rows of bricks
-#define ROWS 5
+#define ROWS 1
 
 // number of columns of bricks
-#define COLS 10
+#define COLS 1
 
 // radius of ball in pixels
 #define RADIUS 10
@@ -45,6 +45,7 @@ GRect initPaddle(GWindow window);
 GLabel initScoreboard(GWindow window);
 void updateScoreboard(GWindow window, GLabel label, int points);
 GObject detectCollision(GWindow window, GOval ball);
+GLabel initMessage(GWindow window);
 
 int main(void)
 {
@@ -162,6 +163,12 @@ int main(void)
         }
     }
 
+    // check for victory
+    if (lives > 0)
+    {
+        GLabel message = initMessage(window);
+    }    
+    
     // wait for click before exiting
     waitForClick();
 
@@ -324,4 +331,19 @@ GObject detectCollision(GWindow window, GOval ball)
 
     // no collision
     return NULL;
+}
+
+GLabel initMessage(GWindow window)
+{
+    // initialize message
+    GLabel message = newGLabel("YOU WIN!");
+    setFont(message, "SansSerif-50");
+    setColor(message, "0000FF");
+    
+    // add message to window
+    add(window, message);
+    setLocation(message, 85, 350);
+    
+    // return message
+    return message;
 }
