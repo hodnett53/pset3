@@ -145,6 +145,12 @@ int main(void)
             x_velocity = -x_velocity;
         }
         
+        // check for collision with top of screen
+        if (getY(ball) <= 0)
+        {
+            y_velocity = -y_velocity;
+        }
+        
         // check for ball hitting the bottom of the screen
         if (getY(ball) + getHeight(ball) >= getHeight(window))
         {
@@ -168,11 +174,7 @@ int main(void)
  * Initializes window with a grid of bricks.
  */
 void initBricks(GWindow window)
-{
-    // TODO fix columns so it changes when constant changes
-    int rowSpacing = 10;
-    int colSpacing = 50;
-    
+{    
     // array containing the colors of each row
     char* colors[5] = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE"};
     
